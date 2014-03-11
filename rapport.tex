@@ -45,19 +45,18 @@ The second one will have an holonomic base, and is nicknamed ``Nastya 2''.
         \includegraphics[width=0.6\textwidth]{images/debra_explained}
         \caption{Debra 4 robot.
             Height : \SI{350}{\milli\meter}.
-            Perimeter : \textbf{TODO}.
-            Deployed perimeter : \textbf{TODO}.
+            Perimeter : \SI{695}{\milli\meter}.
         }
         \label{fig:balise}
     \end{center}
 \end{figure}
-Debra 4 is our biggest robot, dedicated to rotating the fire on the correct side.
+Debra 4 is our biggest robot, dedicated to rotating the fire on the correct side, although fruits may be implemented if time allows it.
 At the beginning of the game, it will quickly go to the fires' positions and take them with its arms (using vacuum).
 It can then find the orientation of the fire using fixed color sensors and store them in front of the robot.
 For unloading the fire, Debra can either unstack them using its arms or it can push them out from the bottom of the stack using a small lever.
 
 \paragraph{Motors}
-Debra 4 uses two Faulhaber 2232-012-SR motors, rated at \SI{8.7}{\watt} at \SI{12}{\volt}, overvolted at \SI{14.8}{\volt}.
+Debra 4 uses two Faulhaber 2232-012-SR motors with a 20:1 reduction, rated at \SI{8.7}{\watt} at \SI{12}{\volt}, overvolted at \SI{14.8}{\volt}.
 Those motors allows us to use our max acceleration (wheel slippage) to \SI{0.8}{\meter\per\second}.
 All the motors in the robots are driven using custom power electronics.
 
