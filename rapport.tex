@@ -43,7 +43,11 @@ The second one will have an holonomic base, and is nicknamed ``Nastya 2''.
 \begin{figure}[h]
     \begin{center}
         \includegraphics[width=0.6\textwidth]{images/debra_explained}
-        \caption{Debra 4 robot.}
+        \caption{Debra 4 robot.
+            Height : \SI{350}{\milli\meter}.
+            Perimeter : \textbf{TODO}.
+            Deployed perimeter : \textbf{TODO}.
+        }
         \label{fig:balise}
     \end{center}
 \end{figure}
@@ -67,6 +71,9 @@ We have planned to build an optical absolute positioning beacon system, but it m
 If we cannot make it in time, we will fall back on last year's beacon system (fig. \ref{fig:balise}).
 The relative simplicity of this second design makes it very reliable and easy to implement, which guarantees that it will be ready for the Belgium and Switzerland contests.
 
+\paragraph{Power supply}
+The robot is powered by a single \SI{14.8}{\volt} lithium-polymer battery, which gives us a run time of at least \SI{40}{\minute}.
+
 \begin{figure}[h]
     \begin{center}
         \includegraphics[width=0.6\textwidth]{images/Balise}
@@ -88,20 +95,30 @@ The two main sensors for this application are two Sick color sensors, mounted on
 To measure a fire's color, the robot must take it with one arm and approach it near the sensor.
 We also have a range camera to find the fire's location which is combined to a color camera for decision making.
 
+\paragraph{Computing}
+Both of our robots have two processing unit :
+\begin{itemize}
+    \item An x86-based embedded PC running Linux is used for computer vision, path planning and state synchronization with Nastya (WLAN link).
+    \item An FPGA board with an Altera Nios 2 softcore processor is used for real time operations, such as motor control.
+        We run UC/OS-II on this board, an industrial and proven RTOS, free for academic and hobby use.
+\end{itemize}
+
+The two boards communicate via TCP/IP over serial, which make communication testing and debugging very easy thanks to tool like Wireshark.
+
 
 \section{Team members}
 \begin{itemize}
-    \item Antoine Albertelli, 21:  Lead developper, Debra 4.
-    \item Florian Reinhard, XX:  Lead developper, Nastya 2.
+    \item Antoine Albertelli, 21:  Lead programmer, Debra 4.
+    \item Florian Reinhard, XX:  Lead programmer, Nastya 2.
     \item Patrick Spieler, XX:  Inter-board communication.
     \item Pius von Däniken, XX:  Motion planning.
     \item Romain Bersier, 29:  Mechanical engineer, Debra 4.
     \item Boris Pillionnel, 23:  Mechanical engineer, Nastya 2.
     \item Patrick Eugster, 29:  Electrical engineer.
-    \item Thierry Prêtre, 21:  Sponsoring.
     \item Mathieu Rouvinez, XX:  Machining and mathematical wizardry.
-    \item Guillaume:  Il fait quoi ?
-    \item Jess:  De même
+    \item Guillaume Doe, XX: Mechanical engineer.
+    \item Jessica Doe: Electrical engineer:
+    \item Thierry Prêtre, 21:  Sponsoring and public relationships.
 \end{itemize}
 
 
