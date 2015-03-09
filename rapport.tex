@@ -35,42 +35,36 @@
 
 \section{Robots}
 This year the club will engage two robots which are evolutions of previous years' designs.
-The first one will have two arms, a differential drive and has code name ``Debra 4''.
-The second one will have an holonomic base, and is nicknamed ``Nastya 2''.
+The first one will have two arms, a differential drive and has code name \textit{Debra 5}.
+The small robot isn't very advanced yet and is temporary named \textit{Nastya 3}.
 
-\subsection{Debra 4}
+\subsection{Debra 5}
 \begin{figure}[h]
     \begin{center}
         \includegraphics[width=0.6\textwidth]{images/debra_explained}
-        \caption{Debra 4 robot.
+        \caption{Debra 5 robot.
             Height : \SI{350}{\milli\meter}.
             Perimeter : \SI{695}{\milli\meter}.
+            Max perimeter is enforced by software.
         }
-        \label{fig:balise}
+        \label{fig:debra}
     \end{center}
 \end{figure}
-Debra 4 is our biggest robot, dedicated to rotating the fire on the correct side, although fruits may be implemented if time allows it.
-At the beginning of the game, it will quickly go to the fires' positions and take them with its arms (using vacuum).
-It can then find the orientation of the fire using fixed color sensors and store them in front of the robot.
-For unloading the fire, Debra can either unstack them using its arms or it can push them out from the bottom of the stack using a small lever.
+Debra 5 is our big robot, dedicated to \textbf{todo}.
 
 \paragraph{Motors}
-Debra 4 uses two Faulhaber 2232-012-SR motors with a 20:1 reduction, rated at \SI{8.7}{\watt} at \SI{12}{\volt}, overvolted at \SI{14.8}{\volt}.
+Debra 5 uses two Faulhaber 2232-012-SR motors with a 20:1 reduction, rated at \SI{8.7}{\watt} at \SI{12}{\volt}, overvolted at \SI{14.8}{\volt}.
 Those motors allows us to use our max acceleration (wheel slippage) to \SI{0.8}{\meter\per\second}.
 All the motors in the robots are driven using custom power electronics.
 
 \paragraph{Positioning}
-Debra 4 will use a standard, encoder-based odometry to find its position on the table.
-We will also use an inertial measurement unit to have an additional source of information.
-These two techniques will be merged using a Kalman filter.
+Debra 5 will use a standard, encoder-based odometry to find its position on the table.
 
 \paragraph{Opponent detection}
-We have planned to build an optical absolute positioning beacon system, but it may not be ready for the contest due to the complexity of the project.
-If we cannot make it in time, we will fall back on last year's beacon system (fig. \ref{fig:balise}).
-The relative simplicity of this second design makes it very reliable and easy to implement, which guarantees that it will be ready for the Belgium and Switzerland contests.
-
-\paragraph{Power supply}
-The robot is powered by a single \SI{14.8}{\volt} lithium-polymer battery, which gives us a run time of at least \SI{40}{\minute}.
+Our robots have two different avoidance system.
+The first one is based on a rotating laser placed on opponent beacons, which allows to have absolute positionning.
+The second one is based on a reflex sensor embedded in our robot which detects a reflector on the opponent system.
+The redundancy allows for emergency stop in case of failure of the first one or of the pathfinding algorithm.
 
 \begin{figure}[h]
     \begin{center}
@@ -85,73 +79,49 @@ The robot is powered by a single \SI{14.8}{\volt} lithium-polymer battery, which
     \end{center}
 \end{figure}
 
-
-
-\paragraph{Sensors}
-In addition to the encoders and the beacon system, Debra has a few sensors to find the current orientation (color) of the fires.
-The two main sensors for this application are two Sick color sensors, mounted on the side of the robot.
-To measure a fire's color, the robot must take it with one arm and approach it near the sensor.
-We also have a range camera to find the fire's location which is combined to a color camera for decision making.
+\paragraph{Power supply}
+The robot is powered by a single \SI{14.8}{\volt} lithium-polymer battery, which gives us a run time of at least \SI{40}{\minute}.
 
 \paragraph{Computing}
-Both of our robots have two processing unit :
-\begin{itemize}
-    \item An x86-based embedded PC running Linux is used for computer vision, path planning and state synchronization with Nastya (WLAN link).
-    \item An FPGA board with an Altera Nios 2 softcore processor is used for real time operations, such as motor control.
-        We run UC/OS-II on this board, an industrial and proven RTOS, free for academic and hobby use.
-\end{itemize}
-
-The two boards communicate via TCP/IP over serial, which make communication testing and debugging very easy thanks to tool like Wireshark.
-
-\subsection{Nastya 2}
 \begin{figure}[h]
     \begin{center}
-        \includegraphics[width=0.6\textwidth]{images/Nastya_I}
-        \caption{
-            Nastya original version (2013).
-            The second version will be mostly the same with a scale up to reach the new perimeter of \SI{695}{\milli\meter}.
-            The CAD of Nastya 2 is not complete yet.
-        }
+        \includegraphics[width=0.6\textwidth]{images/software}
+        \caption{Software architecture of our robot.}
         \label{fig:balise}
     \end{center}
 \end{figure}
-Nastya 2 is our secondary robot, responsible for the spears, frescos and mammoths capture.
-As it has shares many design decision with Debra, only differences will be presented.
 
-\paragraph{Motors}
-Nastya uses 3 motors instead of only 2 because of its holonomic drive.
-The holonomic wheels are custom made to reduce play and allow for better precision.
-
-
-\paragraph{Sensors}
-We \emph{may} have sensors on Nastya 2.
-Have not decided yet.
-Sensors are nice.
-I like sensors.
+We have three different layers of computing in this year architecture (fig. \ref{fig:software}):
+\begin{enumerate}
+    \item An x86-based embedded PC running Linux is used for game decisisons and path planning.
+    \item The realtime control is done on an ARM board which communicates with the PC using an IP/Ethernet link.
+    \item Finally each motor has a motor control board connected to it, which is responsible for speed and torque control, motor protection etc.
+        Communication with the main board is done via a CAN bus running at \si{1}{\mega\hertz}.
+\end{enumerate}
 
 
+This software architecture allows us to easily scale to any number of actuators or sensors in one robot (up to 127 motors per CAN bus/master board).
+
+\subsection{Nastya 3}
+Nastya's design is not finished yet, but most parts are common to both robots.
 
 \section{Team members}
 \begin{itemize}
-    \item Antoine Albertelli, 21:  Lead programmer, Debra.
-    \item Florian Reinhard, 21:  Lead programmer, Nastya.
-    \item Patrick Spieler, 22:  Inter-board communication.
-    \item Pius von Däniken, 23:  Motion planning.
+    \item Antoine Albertelli, 21: Software engineer.
+    \item Florian Reinhard, 21:  Software engineer.
+    \item Patrick Spieler, 22:  Software engineer.
+    \item Michael Spieler, 21:  Software engineer.
+    \item Pius von Däniken, 23:  Software engineer.
     \item Romain Bersier, 29:  Mechanical engineer, Debra.
     \item Boris Pillionnel, 23:  Mechanical engineer, Nastya.
-    \item Patrick Eugster, 29:  Electrical engineer.
-    \item Mathieu Rouvinez, 28:  Machining and advanced mathematical wizardry.
-    \item Guillaume Schaufelberger, 18: Mechanical engineer.
-    \item Jessica Schmid, 19: Electrical engineer.
-    \item Thierry Prêtre, 21:  Sponsoring and public relationships.
-    \item Dominik Reukauf, 23 : Computer vision.
+    \item Guillaume Schaufelberger, 19: Mechanical engineer, Nastya.
+    \item Mathieu Rouvinez, 29:  Machining
+    \item Jessica Schmid, 20: Electrical engineer.
+    \item Dominik Reukauf, 24 : Mechanical Engineer.
 \end{itemize}
 
 \clearpage
 
 \input{sponsors.tex}
-
-
-
 
 \end{document}
