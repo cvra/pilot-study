@@ -34,31 +34,20 @@
 \end{itemize}
 
 \section{Robots}
-This year the club will engage two robots which are evolutions of previous years' designs.
-The first one will have two arms, a differential drive and has code name \textit{Debra 5}.
-The small robot isn't very advanced yet and is temporary named \textit{Nastya 3}.
-
-\subsection{Debra 5}
-\begin{figure}[h]
-    \begin{center}
-        \includegraphics[width=0.6\textwidth]{images/debra_explained}
-        \caption{Debra 5 robot.
-            Height : \SI{350}{\milli\meter}.
-            Perimeter : \SI{695}{\milli\meter}.
-            Max perimeter is enforced by software.
-        }
-        \label{fig:debra}
-    \end{center}
-\end{figure}
-Debra 5 is our big robot, dedicated to \textbf{todo}.
+This year the club will engage two robots,
+The first one will have two arms, a differential drive and has code name \textit{Debra 5}, since it is the fith evolution of this design.
+The small robot hasn't got a name yet.
+Both robot share a common architecture, except for the arms, replaced by mission-specific actuators in the small robot.
+In this document only points shared by both robots are presented since the design of the mission specific part is not finised yet.
 
 \paragraph{Motors}
-Debra 5 uses two Faulhaber 2232-012-SR motors with a 20:1 reduction, rated at \SI{8.7}{\watt} at \SI{12}{\volt}, overvolted at \SI{14.8}{\volt}.
+Our robots each use two Faulhaber 2232-012-SR motors with a 20:1 reduction, rated at \SI{8.7}{\watt} at \SI{12}{\volt}, overvolted at \SI{14.8}{\volt}.
 Those motors allows us to use our max acceleration (wheel slippage) to \SI{0.8}{\meter\per\second}.
-All the motors in the robots are driven using custom power electronics.
+Each motor in the robot has an associated motor control board and processor, which will be presented later.
 
 \paragraph{Positioning}
-Debra 5 will use a standard, encoder-based odometry to find its position on the table.
+The robots use standard dead reckoning algorithms for positionning itself.
+A second pair of wheel, separate from the motor wheels, is used in order to avoid slippage under acceleration or shocks.
 
 \paragraph{Opponent detection}
 Our robots have two different avoidance system.
@@ -96,14 +85,11 @@ We have three different layers of computing in this year architecture (fig. \ref
     \item An x86-based embedded PC running Linux is used for game decisisons and path planning.
     \item The realtime control is done on an ARM board which communicates with the PC using an IP/Ethernet link.
     \item Finally each motor has a motor control board connected to it, which is responsible for speed and torque control, motor protection etc.
-        Communication with the main board is done via a CAN bus running at \si{1}{\mega\hertz}.
+        Communication with the main board is done via a CAN bus running at \SI{1}{\mega\hertz}.
 \end{enumerate}
 
 
 This software architecture allows us to easily scale to any number of actuators or sensors in one robot (up to 127 motors per CAN bus/master board).
-
-\subsection{Nastya 3}
-Nastya's design is not finished yet, but most parts are common to both robots.
 
 \section{Team members}
 \begin{itemize}
@@ -123,5 +109,17 @@ Nastya's design is not finished yet, but most parts are common to both robots.
 \clearpage
 
 \input{sponsors.tex}
+
+\section{Lasers}
+We have two different laser sources in the robot:
+\begin{enumerate}
+    \item The laser rangefinder (LIDAR).
+        This system is certified class 1 by the manufacturer and wasn't modified in any way.
+        The datasheet of the system will be provided on contest day.
+    \item Main opponent detection system.
+        This laser source was taken from a class 2 laser device but our use of the source puts it in class 1.
+        This system was certified by the Swiss authorities (METAS) as class 1.
+        The certification will be provided on contest day.
+\end{enumerate}
 
 \end{document}
