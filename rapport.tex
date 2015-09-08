@@ -76,7 +76,7 @@ The robot is powered by a single \SI{14.8}{\volt} lithium-polymer battery, which
     \begin{center}
         \includegraphics[width=0.6\textwidth]{images/software}
         \caption{Software architecture of our robot.}
-        \label{fig:balise}
+        \label{fig:software}
     \end{center}
 \end{figure}
 
@@ -90,6 +90,18 @@ We have three different layers of computing in this year architecture (fig. \ref
 
 
 This software architecture allows us to easily scale to any number of actuators or sensors in one robot (up to 127 motors per CAN bus/master board).
+
+\section{Lasers}
+We have two different laser sources in the robot:
+\begin{enumerate}
+    \item The laser rangefinder (LIDAR).
+        This system is certified class 1 by the manufacturer and wasn't modified in any way.
+        The datasheet of the system will be provided on contest day.
+    \item Main opponent detection system.
+        This laser source was taken from a class 2 laser device but our use of the source puts it in class 1.
+        This system was certified by the Swiss authorities (METAS) as class 1.
+        The certification will be provided on contest day.
+\end{enumerate}
 
 \section{Team members}
 \begin{itemize}
@@ -105,21 +117,5 @@ This software architecture allows us to easily scale to any number of actuators 
     \item Jessica Schmid, 20: Electrical engineer.
     \item Dominik Reukauf, 24 : Mechanical Engineer.
 \end{itemize}
-
-\clearpage
-
-\input{sponsors.tex}
-
-\section{Lasers}
-We have two different laser sources in the robot:
-\begin{enumerate}
-    \item The laser rangefinder (LIDAR).
-        This system is certified class 1 by the manufacturer and wasn't modified in any way.
-        The datasheet of the system will be provided on contest day.
-    \item Main opponent detection system.
-        This laser source was taken from a class 2 laser device but our use of the source puts it in class 1.
-        This system was certified by the Swiss authorities (METAS) as class 1.
-        The certification will be provided on contest day.
-\end{enumerate}
 
 \end{document}
